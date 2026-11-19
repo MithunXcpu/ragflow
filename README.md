@@ -1,3 +1,23 @@
+# Retrieval Evals Scorecard
+
+This fork adds a small retrieval evaluation tool under [`evals/retrieval_scorecard/`](evals/retrieval_scorecard/README.md). It does not change the RAGFlow server.
+
+The tool runs one golden question set through three retrieval configurations and writes a static HTML scorecard with recall@k, mean reciprocal rank, and a faithfulness score. The pages and questions are fictional Harborline field-service notes. Figures in the sample report are from that demo, not from a customer.
+
+It is the kind of before-and-after used when showing a vector index: change the chunk window, the result depth, or a rerank step, and read whether the expected source chunk moved. The same page is a check that a knowledge base returns the chunk a question was written against before anyone tunes a chat prompt.
+
+Local mode chunks the sample pages and ranks them with hashed token vectors plus lexical overlap, with an optional density rerank. It does not start RAGFlow. Live mode calls `POST /api/v1/retrieval`. Faithfulness and, in local mode, embeddings use NVIDIA's OpenAI-compatible API at `https://integrate.api.nvidia.com/v1` when `NVIDIA_API_KEY` is set. With no key, or if a call fails, the run uses the offline mock and the report says so.
+
+```bash
+docker compose -f evals/retrieval_scorecard/docker-compose.yml run --rm scorecard
+```
+
+```bash
+python3 evals/retrieval_scorecard/scorecard.py --mode local --provider mock
+```
+
+The command writes `evals/retrieval_scorecard/out/scorecard.html`. A sample report from the fixture run is checked in at [`evals/retrieval_scorecard/docs/scorecard.html`](evals/retrieval_scorecard/docs/scorecard.html). Setup, live-API settings, and limits are in [`evals/retrieval_scorecard/README.md`](evals/retrieval_scorecard/README.md).
+
 <div align="center">
 <a href="https://cloud.ragflow.io/">
 <img src="https://raw.githubusercontent.com/infiniflow/ragflow/main/web/src/assets/logo-with-text.svg" width="520" alt="ragflow logo">

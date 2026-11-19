@@ -1,0 +1,529 @@
+{
+  "mode": "local",
+  "embedding_backend": "mock-hash",
+  "notes": [
+    "Sample corpus: fictional Harborline field-service notes. Glossary sections repeat a question without the procedure value so a short result list can rank them above the procedure note. That is demo material.",
+    "Expected sources are chunk_id markers in those notes, not live database ids.",
+    "The mock judge scores whether reference values (numbers, codes) appear in the retrieved text. A glossary note can share the question wording and still fail that check.",
+    "Embeddings are hashed token vectors (mock). Set LLM_PROVIDER=nvidia and NVIDIA_API_KEY to call NVIDIA embeddings and the judge.",
+    "Local fixture mode does not start RAGFlow. It chunks the sample pages, ranks them with lexical overlap plus the embedding vector, and optionally applies the density rerank."
+  ],
+  "configs": [
+    {
+      "name": "narrow-top1",
+      "chunk_chars": 260,
+      "top_k": 1,
+      "rerank": false,
+      "recall_at_k": 0.65,
+      "mrr": 0.65,
+      "faithfulness": 0.7561,
+      "judge": "mock",
+      "questions": [
+        {
+          "id": "q01",
+          "recall_at_k": 0.0,
+          "mrr": 0.0,
+          "first_relevant_rank": null,
+          "faithfulness": 0.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q02",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q03",
+          "recall_at_k": 0.0,
+          "mrr": 0.0,
+          "first_relevant_rank": null,
+          "faithfulness": 0.8,
+          "judge": "mock"
+        },
+        {
+          "id": "q04",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q05",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q06",
+          "recall_at_k": 0.0,
+          "mrr": 0.0,
+          "first_relevant_rank": null,
+          "faithfulness": 0.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q07",
+          "recall_at_k": 0.0,
+          "mrr": 0.0,
+          "first_relevant_rank": null,
+          "faithfulness": 0.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q08",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q09",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q10",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q11",
+          "recall_at_k": 0.0,
+          "mrr": 0.0,
+          "first_relevant_rank": null,
+          "faithfulness": 0.75,
+          "judge": "mock"
+        },
+        {
+          "id": "q12",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q13",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q14",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q15",
+          "recall_at_k": 0.0,
+          "mrr": 0.0,
+          "first_relevant_rank": null,
+          "faithfulness": 0.5714,
+          "judge": "mock"
+        },
+        {
+          "id": "q16",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q17",
+          "recall_at_k": 0.0,
+          "mrr": 0.0,
+          "first_relevant_rank": null,
+          "faithfulness": 0.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q18",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q19",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q20",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        }
+      ]
+    },
+    {
+      "name": "wide-top4",
+      "chunk_chars": 4500,
+      "top_k": 4,
+      "rerank": false,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "faithfulness": 1.0,
+      "judge": "mock",
+      "questions": [
+        {
+          "id": "q01",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q02",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q03",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q04",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q05",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q06",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q07",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q08",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q09",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q10",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q11",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q12",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q13",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q14",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q15",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q16",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q17",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q18",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q19",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q20",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        }
+      ]
+    },
+    {
+      "name": "rerank-top1",
+      "chunk_chars": 260,
+      "top_k": 1,
+      "rerank": true,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "faithfulness": 1.0,
+      "judge": "mock",
+      "questions": [
+        {
+          "id": "q01",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q02",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q03",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q04",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q05",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q06",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q07",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q08",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q09",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q10",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q11",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q12",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q13",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q14",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q15",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q16",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q17",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q18",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q19",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        },
+        {
+          "id": "q20",
+          "recall_at_k": 1.0,
+          "mrr": 1.0,
+          "first_relevant_rank": 1,
+          "faithfulness": 1.0,
+          "judge": "mock"
+        }
+      ]
+    }
+  ]
+}
