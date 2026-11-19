@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retrieval Evals Scorecard</title>
+<style>
+  :root {
+    --ink: #1c1915;
+    --muted: #5c564c;
+    --line: #d9d1c4;
+    --paper: #f6f3ec;
+    --card: #fffdf8;
+    --good: #0f6e56;
+    --mid: #9a6700;
+    --low: #9f2d1c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font: 15px/1.5 "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+    color: var(--ink);
+    background: var(--paper);
+  }
+  main { max-width: 1080px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 32px; line-height: 1.15; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 32px 0 8px; }
+  p { margin: 8px 0; }
+  .banner {
+    background: #efe4c4;
+    border: 1px solid #d8c48a;
+    padding: 10px 12px;
+    margin: 16px 0 20px;
+  }
+  .meta { color: var(--muted); font-family: ui-sans-serif, sans-serif; font-size: 13px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    font-family: ui-sans-serif, sans-serif;
+    font-size: 13px;
+  }
+  th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px 10px; vertical-align: top; }
+  th { font-size: 12px; letter-spacing: 0.02em; color: var(--muted); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar {
+    height: 8px;
+    background: #ece6db;
+    margin-top: 6px;
+  }
+  .bar > span { display: block; height: 8px; background: var(--good); }
+  .miss { color: var(--low); }
+  .hit { color: var(--good); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Retrieval Evals Scorecard</h1>
+  <p class="meta">Generated 2026-11-19 01:23 UTC · mode <code>local</code> · embeddings <code>mock-hash</code></p>
+  <div class="banner">
+    SAMPLE DATA. The Harborline field-service pages and the 20 questions are fictional demo material for this scorecard. They are not a customer result, a benchmark claim, or a production measurement.
+  </div>
+  <p>
+    Each row is the same golden set run under a different retrieval configuration.
+    Recall@k is the fraction of expected source chunks that appear in the top k hits.
+    MRR is the mean of 1/rank for the first expected chunk.
+    Faithfulness asks whether the drafted answer stays inside the retrieved text.
+    The offline judge drafts from the retrieved sentences. If those sentences do not contain the reference values, it appends the reference answer and counts the missing values as unsupported. That is a stand-in for a model that answers from memory when retrieval misses. It is not a claim about a hosted judge.
+  </p>
+  <h2>Comparison</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Config</th>
+        <th>Chunk window</th>
+        <th class="num">Top-k</th>
+        <th>Rerank</th>
+        <th class="num">Recall@k</th>
+        <th class="num">MRR</th>
+        <th class="num">Faithfulness</th>
+        <th>Judge</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>narrow-top1</strong><br>Short windows and a single hit. Rerank off. A long glossary note can take the only slot.</td><td>260 chars</td><td class="num">1</td><td>off</td><td class="num">65.0%<div class="bar"><span style="width:65.0%"></span></div></td><td class="num">0.650<div class="bar"><span style="width:65.0%"></span></div></td><td class="num">0.756<div class="bar"><span style="width:75.6%"></span></div></td><td><code>mock</code></td></tr>
+<tr><td><strong>wide-top4</strong><br>Long windows pack each glossary note into the same hit as the procedure note, and the result list is four deep. Rerank off.</td><td>4500 chars</td><td class="num">4</td><td>off</td><td class="num">100.0%<div class="bar"><span style="width:100.0%"></span></div></td><td class="num">1.000<div class="bar"><span style="width:100.0%"></span></div></td><td class="num">1.000<div class="bar"><span style="width:100.0%"></span></div></td><td><code>mock</code></td></tr>
+<tr><td><strong>rerank-top1</strong><br>Same short windows as narrow-top1. Eight candidates are reordered by term density, then cut to one hit. Local stand-in for a reranker, not a hosted cross-encoder.</td><td>260 chars</td><td class="num">1</td><td>on</td><td class="num">100.0%<div class="bar"><span style="width:100.0%"></span></div></td><td class="num">1.000<div class="bar"><span style="width:100.0%"></span></div></td><td class="num">1.000<div class="bar"><span style="width:100.0%"></span></div></td><td><code>mock</code></td></tr>
+    </tbody>
+  </table>
+  
+  <h2>narrow-top1</h2>
+  <p class="meta">local fixture index, 35 windows, no rerank</p>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Question</th>
+        <th>Expected chunk</th>
+        <th class="num">First hit</th>
+        <th class="num">Recall</th>
+        <th class="num">Faithfulness</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>q01</code></td><td>How tight should the gland bolts be on the process pump?</td><td><code>pump-torque</code></td><td class="num"><span class="miss">miss</span></td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td><code>q02</code></td><td>What is the seal replacement sequence before final tightening?</td><td><code>pump-steps</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q03</code></td><td>Is bearing noise a symptom of a failed seal?</td><td><code>pump-symptoms</code></td><td class="num"><span class="miss">miss</span></td><td class="num">0.00</td><td class="num">0.80</td></tr>
+<tr><td><code>q04</code></td><td>What tools do I bring for a gland job?</td><td><code>pump-tools</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q05</code></td><td>What is the zero current for the pressure transmitter?</td><td><code>sensor-zero</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q06</code></td><td>What is the span current at the reference pressure?</td><td><code>sensor-span</code></td><td class="num"><span class="miss">miss</span></td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td><code>q07</code></td><td>How often is the pressure transmitter calibrated?</td><td><code>sensor-interval</code></td><td class="num"><span class="miss">miss</span></td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td><code>q08</code></td><td>Can I calibrate while the process line is pressurized?</td><td><code>sensor-line</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q09</code></td><td>Which energy sources does lockout on the skid cover?</td><td><code>loto-energy</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q10</code></td><td>May two technicians share a single lock?</td><td><code>loto-personal</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q11</code></td><td>What check is required after the locks are applied?</td><td><code>loto-verify</code></td><td class="num"><span class="miss">miss</span></td><td class="num">0.00</td><td class="num">0.75</td></tr>
+<tr><td><code>q12</code></td><td>When is a group lockbox required?</td><td><code>loto-group</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q13</code></td><td>How long is the warranty from shipment and from startup?</td><td><code>warranty-window</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q14</code></td><td>Is seal damage from a dry run covered by warranty?</td><td><code>warranty-exclude</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q15</code></td><td>What must a warranty claim include?</td><td><code>warranty-claim</code></td><td class="num"><span class="miss">miss</span></td><td class="num">0.00</td><td class="num">0.57</td></tr>
+<tr><td><code>q16</code></td><td>Which seal kit HK-17 keeps the seal warranty valid?</td><td><code>warranty-kit</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q17</code></td><td>What chunk size and overlap does the demo index use?</td><td><code>index-size</code></td><td class="num"><span class="miss">miss</span></td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td><code>q18</code></td><td>How many chunks does the demo chat path request?</td><td><code>index-topk</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q19</code></td><td>Is the reranker on by default in the demo tenant?</td><td><code>index-rerank</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q20</code></td><td>Which equipment models are stored in chunk metadata?</td><td><code>index-meta</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+    </tbody>
+  </table>
+
+
+  <h2>wide-top4</h2>
+  <p class="meta">local fixture index, 5 windows, no rerank</p>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Question</th>
+        <th>Expected chunk</th>
+        <th class="num">First hit</th>
+        <th class="num">Recall</th>
+        <th class="num">Faithfulness</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>q01</code></td><td>How tight should the gland bolts be on the process pump?</td><td><code>pump-torque</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q02</code></td><td>What is the seal replacement sequence before final tightening?</td><td><code>pump-steps</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q03</code></td><td>Is bearing noise a symptom of a failed seal?</td><td><code>pump-symptoms</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q04</code></td><td>What tools do I bring for a gland job?</td><td><code>pump-tools</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q05</code></td><td>What is the zero current for the pressure transmitter?</td><td><code>sensor-zero</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q06</code></td><td>What is the span current at the reference pressure?</td><td><code>sensor-span</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q07</code></td><td>How often is the pressure transmitter calibrated?</td><td><code>sensor-interval</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q08</code></td><td>Can I calibrate while the process line is pressurized?</td><td><code>sensor-line</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q09</code></td><td>Which energy sources does lockout on the skid cover?</td><td><code>loto-energy</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q10</code></td><td>May two technicians share a single lock?</td><td><code>loto-personal</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q11</code></td><td>What check is required after the locks are applied?</td><td><code>loto-verify</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q12</code></td><td>When is a group lockbox required?</td><td><code>loto-group</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q13</code></td><td>How long is the warranty from shipment and from startup?</td><td><code>warranty-window</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q14</code></td><td>Is seal damage from a dry run covered by warranty?</td><td><code>warranty-exclude</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q15</code></td><td>What must a warranty claim include?</td><td><code>warranty-claim</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q16</code></td><td>Which seal kit HK-17 keeps the seal warranty valid?</td><td><code>warranty-kit</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q17</code></td><td>What chunk size and overlap does the demo index use?</td><td><code>index-size</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q18</code></td><td>How many chunks does the demo chat path request?</td><td><code>index-topk</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q19</code></td><td>Is the reranker on by default in the demo tenant?</td><td><code>index-rerank</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q20</code></td><td>Which equipment models are stored in chunk metadata?</td><td><code>index-meta</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+    </tbody>
+  </table>
+
+
+  <h2>rerank-top1</h2>
+  <p class="meta">local fixture index, 35 windows, density rerank</p>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Question</th>
+        <th>Expected chunk</th>
+        <th class="num">First hit</th>
+        <th class="num">Recall</th>
+        <th class="num">Faithfulness</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>q01</code></td><td>How tight should the gland bolts be on the process pump?</td><td><code>pump-torque</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q02</code></td><td>What is the seal replacement sequence before final tightening?</td><td><code>pump-steps</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q03</code></td><td>Is bearing noise a symptom of a failed seal?</td><td><code>pump-symptoms</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q04</code></td><td>What tools do I bring for a gland job?</td><td><code>pump-tools</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q05</code></td><td>What is the zero current for the pressure transmitter?</td><td><code>sensor-zero</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q06</code></td><td>What is the span current at the reference pressure?</td><td><code>sensor-span</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q07</code></td><td>How often is the pressure transmitter calibrated?</td><td><code>sensor-interval</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q08</code></td><td>Can I calibrate while the process line is pressurized?</td><td><code>sensor-line</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q09</code></td><td>Which energy sources does lockout on the skid cover?</td><td><code>loto-energy</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q10</code></td><td>May two technicians share a single lock?</td><td><code>loto-personal</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q11</code></td><td>What check is required after the locks are applied?</td><td><code>loto-verify</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q12</code></td><td>When is a group lockbox required?</td><td><code>loto-group</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q13</code></td><td>How long is the warranty from shipment and from startup?</td><td><code>warranty-window</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q14</code></td><td>Is seal damage from a dry run covered by warranty?</td><td><code>warranty-exclude</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q15</code></td><td>What must a warranty claim include?</td><td><code>warranty-claim</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q16</code></td><td>Which seal kit HK-17 keeps the seal warranty valid?</td><td><code>warranty-kit</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q17</code></td><td>What chunk size and overlap does the demo index use?</td><td><code>index-size</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q18</code></td><td>How many chunks does the demo chat path request?</td><td><code>index-topk</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q19</code></td><td>Is the reranker on by default in the demo tenant?</td><td><code>index-rerank</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+<tr><td><code>q20</code></td><td>Which equipment models are stored in chunk metadata?</td><td><code>index-meta</code></td><td class="num"><span class="hit">1</span></td><td class="num">1.00</td><td class="num">1.00</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Run notes</h2>
+  <ul>
+    <li>Sample corpus: fictional Harborline field-service notes. Glossary sections repeat a question without the procedure value so a short result list can rank them above the procedure note. That is demo material.</li><li>Expected sources are chunk_id markers in those notes, not live database ids.</li><li>The mock judge scores whether reference values (numbers, codes) appear in the retrieved text. A glossary note can share the question wording and still fail that check.</li><li>Embeddings are hashed token vectors (mock). Set LLM_PROVIDER=nvidia and NVIDIA_API_KEY to call NVIDIA embeddings and the judge.</li><li>Local fixture mode does not start RAGFlow. It chunks the sample pages, ranks them with lexical overlap plus the embedding vector, and optionally applies the density rerank.</li>
+  </ul>
+</main>
+</body>
+</html>

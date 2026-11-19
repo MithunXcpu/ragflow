@@ -1,0 +1,126 @@
+{
+  "dataset_name": "Harborline field service (sample)",
+  "disclaimer": "Fictional demo questions. Not a customer evaluation and not a measured production result.",
+  "questions": [
+    {
+      "id": "q01",
+      "question": "How tight should the gland bolts be on the process pump?",
+      "expected_chunks": ["pump-torque"],
+      "reference_answer": "The tight setting for the CP-440 gland bolts on the process pump is 25 nm in a cross pattern."
+    },
+    {
+      "id": "q02",
+      "question": "What is the seal replacement sequence before final tightening?",
+      "expected_chunks": ["pump-steps"],
+      "reference_answer": "The seal replacement sequence before final tightening is to isolate the pump, drain the casing, pull the bearing frame, and seat the new seal on the shaft sleeve."
+    },
+    {
+      "id": "q03",
+      "question": "Is bearing noise a symptom of a failed seal?",
+      "expected_chunks": ["pump-symptoms"],
+      "reference_answer": "Bearing noise is not a seal symptom. A failed CP-440 seal weeps at the gland."
+    },
+    {
+      "id": "q04",
+      "question": "What tools do I bring for a gland job?",
+      "expected_chunks": ["pump-tools"],
+      "reference_answer": "Bring a torque wrench, a seal hook, and solvent wipes for a gland job."
+    },
+    {
+      "id": "q05",
+      "question": "What is the zero current for the pressure transmitter?",
+      "expected_chunks": ["sensor-zero"],
+      "reference_answer": "The zero current for the PS-9 pressure transmitter is 4ma with the vent open to atmosphere."
+    },
+    {
+      "id": "q06",
+      "question": "What is the span current at the reference pressure?",
+      "expected_chunks": ["sensor-span"],
+      "reference_answer": "The span current for the PS-9 at the reference pressure of 10bar is 20ma."
+    },
+    {
+      "id": "q07",
+      "question": "How often is the pressure transmitter calibrated?",
+      "expected_chunks": ["sensor-interval"],
+      "reference_answer": "Calibrate the PS-9 pressure transmitter every 180 days, and again after any overpressure trip."
+    },
+    {
+      "id": "q08",
+      "question": "Can I calibrate while the process line is pressurized?",
+      "expected_chunks": ["sensor-line"],
+      "reference_answer": "Never calibrate the PS-9 while the process line is pressurized. Vent the line first."
+    },
+    {
+      "id": "q09",
+      "question": "Which energy sources does lockout on the skid cover?",
+      "expected_chunks": ["loto-energy"],
+      "reference_answer": "Lockout on the skid covers electrical, hydraulic, pneumatic, and stored spring energy sources."
+    },
+    {
+      "id": "q10",
+      "question": "May two technicians share a single lock?",
+      "expected_chunks": ["loto-personal"],
+      "reference_answer": "Two technicians may not share a single lock. Each worker applies a personal lock."
+    },
+    {
+      "id": "q11",
+      "question": "What check is required after the locks are applied?",
+      "expected_chunks": ["loto-verify"],
+      "reference_answer": "After the locks are applied, the required check is a try-start that does not move the machine."
+    },
+    {
+      "id": "q12",
+      "question": "When is a group lockbox required?",
+      "expected_chunks": ["loto-group"],
+      "reference_answer": "A group lockbox is required when more than one craft works on the same isolation."
+    },
+    {
+      "id": "q13",
+      "question": "How long is the warranty from shipment and from startup?",
+      "expected_chunks": ["warranty-window"],
+      "reference_answer": "The warranty lasts 18 months from shipment or 12 months from startup, whichever date comes first."
+    },
+    {
+      "id": "q14",
+      "question": "Is seal damage from a dry run covered by warranty?",
+      "expected_chunks": ["warranty-exclude"],
+      "reference_answer": "Seal damage from a dry run is not covered by warranty."
+    },
+    {
+      "id": "q15",
+      "question": "What must a warranty claim include?",
+      "expected_chunks": ["warranty-claim"],
+      "reference_answer": "A warranty claim must include the serial number, the hour-meter reading, and photos of the gland."
+    },
+    {
+      "id": "q16",
+      "question": "Which seal kit HK-17 keeps the seal warranty valid?",
+      "expected_chunks": ["warranty-kit"],
+      "reference_answer": "Only seal kit HK-17 keeps the CP-440 seal warranty valid."
+    },
+    {
+      "id": "q17",
+      "question": "What chunk size and overlap does the demo index use?",
+      "expected_chunks": ["index-size"],
+      "reference_answer": "The demo index uses a 512-token chunk size and a 64-token overlap."
+    },
+    {
+      "id": "q18",
+      "question": "How many chunks does the demo chat path request?",
+      "expected_chunks": ["index-topk"],
+      "reference_answer": "The demo chat path requests top-8 chunks."
+    },
+    {
+      "id": "q19",
+      "question": "Is the reranker on by default in the demo tenant?",
+      "expected_chunks": ["index-rerank"],
+      "reference_answer": "The reranker is off by default in the demo tenant."
+    },
+    {
+      "id": "q20",
+      "question": "Which equipment models are stored in chunk metadata?",
+      "expected_chunks": ["index-meta"],
+      "reference_answer": "Chunk metadata stores the equipment models CP-440 and PS-9."
+    }
+  ]
+}

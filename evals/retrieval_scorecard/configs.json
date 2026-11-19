@@ -1,0 +1,32 @@
+[
+  {
+    "name": "narrow-top1",
+    "description": "Short windows and a single hit. Rerank off. A long glossary note can take the only slot.",
+    "chunk_chars": 260,
+    "top_k": 1,
+    "candidate_pool": 1,
+    "rerank": false,
+    "vector_similarity_weight": 0.05,
+    "similarity_threshold": 0.0
+  },
+  {
+    "name": "wide-top4",
+    "description": "Long windows pack each glossary note into the same hit as the procedure note, and the result list is four deep. Rerank off.",
+    "chunk_chars": 4500,
+    "top_k": 4,
+    "candidate_pool": 4,
+    "rerank": false,
+    "vector_similarity_weight": 0.05,
+    "similarity_threshold": 0.0
+  },
+  {
+    "name": "rerank-top1",
+    "description": "Same short windows as narrow-top1. Eight candidates are reordered by term density, then cut to one hit. Local stand-in for a reranker, not a hosted cross-encoder.",
+    "chunk_chars": 260,
+    "top_k": 1,
+    "candidate_pool": 8,
+    "rerank": true,
+    "vector_similarity_weight": 0.05,
+    "similarity_threshold": 0.0
+  }
+]
